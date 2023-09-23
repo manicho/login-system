@@ -1,5 +1,8 @@
 {
   "name": "login-system",
+  "version": "0.0.1",
+  "description": "WIP...",
+  "author": "Mauricio Ortega Auriol",
   "devDependencies": {
     "turbo": "^1.10.14"
   },
