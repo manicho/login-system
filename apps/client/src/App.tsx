@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+// import { Login } from "./components/Login";
+import { Register } from "./components/Register";
+// import { Login } from "./components/login/Login";
+import { Nav } from "./components/Nav";
+import { Home } from "./components/Home";
+import { Forgot } from "./components/Forgot";
+import { Reset } from "./components/Reset";
+import { Login } from "./components/login/Login";
 
 function App() {
-  const [greeting, setGreeting] = useState("");
+  // const [greeting, setGreeting] = useState("");
 
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.text())
-      .then(setGreeting);
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api")
+  //     .then((response) => response.text())
+  //     .then(setGreeting);
+  // }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{greeting}</h1>
-    </>
+    <BrowserRouter>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/reset/:token" element={<Reset />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
