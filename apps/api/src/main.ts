@@ -6,6 +6,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.use(cookieParser());
-  await app.listen(3000);
+  app.enableCors({
+    origin: ['http://localhost:3000', 'https://www.googleapis.com'],
+    credentials: true,
+  });
+  await app.listen(8000);
 }
 bootstrap();

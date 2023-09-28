@@ -78,7 +78,9 @@ export const LoginForm = (props: {
           Sign in
         </button>
       </form>
-      <GoogleLogin onSuccess={onSuccess} onError={onError} />
+      <div className="d-flex justify-content-center mt-3">
+        <GoogleLogin onSuccess={onSuccess} onError={onError} />
+      </div>
     </>
   );
 };

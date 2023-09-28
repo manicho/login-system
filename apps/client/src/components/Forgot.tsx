@@ -1,9 +1,7 @@
 import axios from "axios";
 import { SyntheticEvent, useState } from "react";
-import { useMyContext } from "../context/MyContext";
 
 export const Forgot = () => {
-  const { setEmailPayload } = useMyContext();
   const [email, setEmail] = useState("");
   const [notify, setNotify] = useState({
     show: false,
@@ -15,12 +13,12 @@ export const Forgot = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post("forgot", { email });
+
       setNotify({
         show: true,
         error: false,
-        message: "Please check your email",
+        message: data.message,
       });
-      setEmailPayload(data);
     } catch (error) {
       setNotify({
         show: true,

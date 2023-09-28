@@ -24,11 +24,13 @@ export class UserController {
     private jwtService: JwtService,
     private tokenService: TokenService,
   ) {}
+
   @Post('register')
   async register(@Body() body: any) {
     if (body.password !== body.password_confirm) {
       throw new BadRequestException('Passwords do not match!');
     }
+
     return this.userService.save({
       first_name: body.first_name,
       last_name: body.last_name,
@@ -44,7 +46,6 @@ export class UserController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const user = await this.userService.findOne({ where: { email } });
-    console.log(user);
 
     if (!user) {
       throw new BadRequestException('invalid credentials');
@@ -63,7 +64,7 @@ export class UserController {
     }
 
     const secret = speakeasy.generateSecret({
-      name: 'My app',
+      name: 'Login System',
     });
 
     return {
@@ -112,21 +113,26 @@ export class UserController {
       },
       { expiresIn: '30s' },
     );
+
     const refreshToken = await this.jwtService.signAsync({
       id,
     });
+
     const expired_at = new Date();
     expired_at.setDate(expired_at.getDate() + 7);
+
     await this.tokenService.save({
       user_id: id,
       token: refreshToken,
       expired_at,
     });
+
     response.status(200);
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 1000, // 1 week
     });
+
     return {
       token: accessToken,
     };
@@ -135,7 +141,9 @@ export class UserController {
   @Get('user')
   async user(@Req() request: Request) {
     try {
-      const accessToken = request.headers.authorization.replace('Bearer ', '');
+      const accessToken = request.headers.authorization?.replace('Bearer ', '');
+
+      if (!accessToken) throw new UnauthorizedException();
 
       const { id } = await this.jwtService.verifyAsync(accessToken);
 
@@ -144,21 +152,6 @@ export class UserController {
       });
 
       return data;
-    } catch (error) {
-      throw new UnauthorizedException();
-    }
-  }
-
-  @Get('all-users')
-  async allUsers(@Req() request: Request) {
-    try {
-      // const accessToken = request.headers.authorization.replace('Bearer ', '');
-
-      // const { id } = await this.jwtService.verifyAsync(accessToken);
-
-      const { ...data } = await this.userService.findAll({});
-
-      return Object.values(data);
     } catch (error) {
       throw new UnauthorizedException();
     }
@@ -218,8 +211,7 @@ export class UserController {
     @Body('token') token: string,
     @Res({ passthrough: true }) response: Response,
   ) {
-    const clientId =
-      '123268234259-bmb80j8gigdi48ph8jhag39mictdhn1h.apps.googleusercontent.com';
+    const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
     const client = new OAuth2Client(clientId);
 
     const ticket = await client.verifyIdToken({
@@ -252,21 +244,26 @@ export class UserController {
       },
       { expiresIn: '30s' },
     );
+
     const refreshToken = await this.jwtService.signAsync({
       id: user.id,
     });
+
     const expired_at = new Date();
     expired_at.setDate(expired_at.getDate() + 7);
+
     await this.tokenService.save({
       user_id: user.id,
       token: refreshToken,
       expired_at,
     });
+
     response.status(200);
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 1000, // 1 week
     });
+
     return {
       token: accessToken,
     };

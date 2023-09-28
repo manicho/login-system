@@ -6,7 +6,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ResetService } from './reset.service';
-// import { MailerService } from '@nestjs-modules/mailer';
+import { MailerService } from '@nestjs-modules/mailer';
 import { UserService } from 'src/user/user.service';
 import * as bcryptjs from 'bcryptjs';
 
@@ -14,7 +14,7 @@ import * as bcryptjs from 'bcryptjs';
 export class ResetController {
   constructor(
     private resetService: ResetService,
-    // private mailerService: MailerService,
+    private mailerService: MailerService,
     private userService: UserService,
   ) {}
   @Post('forgot')
@@ -26,7 +26,7 @@ export class ResetController {
       token,
     });
 
-    const url = `http://localhost:3000/reset/${token}`;
+    const url = `${process.env.CLIENT_BASE_URL}/reset/${token}`;
 
     const msg = {
       to: email,
@@ -34,9 +34,11 @@ export class ResetController {
       html: `Click <a href="${url}">here</a> to reset your password!`,
     };
 
-    // await this.mailerService.sendMail(msg);
+    await this.mailerService.sendMail(msg);
 
-    return msg;
+    return {
+      message: 'Check your email',
+    };
   }
 
   @Post('reset')

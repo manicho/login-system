@@ -12,9 +12,8 @@ import { TokenService } from './token.service';
     TypeOrmModule.forFeature([User, Token]),
     JwtModule.register({
       global: true,
-      // secret: jwtConstants.secret, TODO: environment constants
-      secret: 'secret',
-      signOptions: { expiresIn: '1w' },
+      secret: process.env.JWT_SECRET || 'secret',
+      signOptions: { expiresIn: '1m' },
     }),
   ],
   controllers: [UserController],

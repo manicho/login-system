@@ -21,7 +21,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="container mt-5 text-center">
+    <div className="container d-flex justify-content-center align-items-center vh-100">
       <h3>{auth ? message : "You are not authenticated"}</h3>
     </div>
   );
