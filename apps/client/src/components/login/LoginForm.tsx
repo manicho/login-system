@@ -1,13 +1,11 @@
 import axios from "axios";
 import { SyntheticEvent, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-// import GoogleLogin from "@stack-pulse/next-google-login";
-// import { GoogleLogin } from "react-google-login";
 import { Link } from "react-router-dom";
 
 export const LoginForm = (props: {
   loginData: Function;
-  success: Function;
+  success: () => void;
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,14 +39,9 @@ export const LoginForm = (props: {
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 
     if (status === 200) props.success();
-
-    console.log(googleUser);
-    console.log(status);
-    console.log("data", data);
   };
 
   const onError = () => {
-    // alert(e.error);
     console.log("error");
   };
 
