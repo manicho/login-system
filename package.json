@@ -1,7 +1,7 @@
 {
   "name": "login-system",
   "version": "0.0.1",
-  "description": "WIP...",
+  "description": "Login System Monorepo, NestJs API and React Client. With Two-Factor Authentication, Google OAuth and Email Registration.",
   "author": "Mauricio Ortega Auriol",
   "devDependencies": {
     "turbo": "^1.10.14"
