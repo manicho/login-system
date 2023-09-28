@@ -8,6 +8,7 @@ import { Home } from "./components/Home";
 import { Forgot } from "./components/Forgot";
 import { Reset } from "./components/Reset";
 import { Login } from "./components/login/Login";
+import { RealTimeBar } from "./components/RealTimeBar";
 
 function App() {
   // const [greeting, setGreeting] = useState("");
@@ -28,6 +29,7 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/reset/:token" element={<Reset />} />
       </Routes>
+      <RealTimeBar />
     </BrowserRouter>
   );
 }

@@ -8,7 +8,7 @@ export const AuthenticatorForm = (props: {
     secret?: string;
     otpauth_url?: string;
   };
-  success: Function;
+  success: () => void;
 }) => {
   const [code, setCode] = useState("");
   const [img, setImg] = useState<ReactElement | null>(null);

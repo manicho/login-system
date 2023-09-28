@@ -44,6 +44,7 @@ export class UserController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const user = await this.userService.findOne({ where: { email } });
+    console.log(user);
 
     if (!user) {
       throw new BadRequestException('invalid credentials');
@@ -143,6 +144,21 @@ export class UserController {
       });
 
       return data;
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  @Get('all-users')
+  async allUsers(@Req() request: Request) {
+    try {
+      // const accessToken = request.headers.authorization.replace('Bearer ', '');
+
+      // const { id } = await this.jwtService.verifyAsync(accessToken);
+
+      const { ...data } = await this.userService.findAll({});
+
+      return Object.values(data);
     } catch (error) {
       throw new UnauthorizedException();
     }

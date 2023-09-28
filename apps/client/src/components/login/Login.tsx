@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { LoginForm } from "./LoginForm";
 import { AuthenticatorForm } from "./AuthenticatorForm";
-import { useDispatch } from "react-redux";
-import { setAuth } from "../../redux/authSlice";
+import { useMyContext } from "../../context/MyContext";
 
 export const Login = () => {
-  const dispatch = useDispatch();
+  const { setAuth } = useMyContext();
   const [redirect, setRedirect] = useState(false);
   const [loginData, setLoginData] = useState<{
     id: number;
@@ -18,7 +17,7 @@ export const Login = () => {
 
   const success = () => {
     setRedirect(true);
-    dispatch(setAuth(true));
+    setAuth(true);
   };
 
   if (redirect) {

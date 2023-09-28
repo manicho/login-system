@@ -1,8 +1,11 @@
 import axios from "axios";
 import { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useMyContext } from "../context/MyContext";
+import { User } from "../interfaces/User";
 
 export const Register = () => {
+  const { databaseUsers, setDatabaseUsers } = useMyContext();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,14 +15,17 @@ export const Register = () => {
 
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await axios.post("register", {
+
+    const newUser: User = {
       first_name: firstName,
       last_name: lastName,
       email,
       password,
       password_confirm: passwordConfirm,
-    });
+    };
+    await axios.post("register", newUser);
 
+    setDatabaseUsers([...databaseUsers, newUser]);
     setRedirect(true);
   };
 

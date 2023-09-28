@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuth } from "../redux/authSlice";
-import { RootState } from "../redux/store";
+// import { useDispatch, useSelector } from "react-redux";
+// import { setAuth } from "../redux/authSlice";
+// import { RootState } from "../redux/store";
+import { useMyContext } from "../context/MyContext";
 
 export const Home = () => {
-  const dispatch = useDispatch();
+  const { auth, setAuth } = useMyContext();
+  // const dispatch = useDispatch();
   const [message, setMessage] = useState("");
-  const auth = useSelector((state: RootState) => state.auth.value);
+  // const auth = useSelector((state: RootState) => state.auth.value);
 
   useEffect(() => {
     (async () => {
@@ -15,10 +17,12 @@ export const Home = () => {
         const { data } = await axios.get("user");
 
         setMessage(`Hi ${data.first_name} ${data.last_name}`);
-        dispatch(setAuth(true));
+        setAuth(true);
+        // dispatch(setAuth(true));
       } catch (error) {
         setMessage("You are not authenticated");
-        dispatch(setAuth(false));
+        setAuth(false);
+        // dispatch(setAuth(false));
       }
     })();
   }, []);

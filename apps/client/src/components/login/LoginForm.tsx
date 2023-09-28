@@ -86,14 +86,6 @@ export const LoginForm = (props: {
         </button>
       </form>
       <GoogleLogin onSuccess={onSuccess} onError={onError} />
-      {/* <GoogleLogin
-        clientId="123268234259-bmb80j8gigdi48ph8jhag39mictdhn1h.apps.googleusercontent.com"
-        buttonText="Login with Google"
-        onSuccess={console.log}
-        onFailure={console.log}
-        cookiePolicy="single_host_origin"
-        className="mt-3 w-100"
-      /> */}
     </>
   );
 };

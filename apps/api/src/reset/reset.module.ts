@@ -3,21 +3,26 @@ import { ResetController } from './reset.controller';
 import { ResetService } from './reset.service';
 import { Reset } from './reset.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MailerModule } from '@nestjs-modules/mailer';
+// import { MailerModule } from '@nestjs-modules/mailer';
 import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Reset]),
-    MailerModule.forRoot({
-      transport: {
-        host: '0.0.0.0',
-        port: 1025,
-      },
-      defaults: {
-        from: 'from@example.com',
-      },
-    }),
+    // MailerModule.forRoot({
+    //   // configure this with the smtp service you choose
+    //   transport: {
+    //     host: 'smtp.example.com',
+    //     secure: false,
+    //     auth: {
+    //       user: 'user@example.com',
+    //       pass: 'topsecret',
+    //     },
+    //   },
+    //   defaults: {
+    //     from: '"No Reply" <noreply@example.com>',
+    //   },
+    // }),
     UserModule,
   ],
   controllers: [ResetController],

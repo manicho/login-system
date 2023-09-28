@@ -17,6 +17,10 @@ export class UserService {
     return this.userRepository.findOne(options);
   }
 
+  async findAll(options) {
+    return this.userRepository.find(options);
+  }
+
   async update(id: number, options) {
     return this.userRepository.update(id, options);
   }

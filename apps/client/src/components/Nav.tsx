@@ -1,19 +1,22 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../redux/store";
-import { setAuth } from "../redux/authSlice";
+// import { RootState } from "../redux/store";
+// import { setAuth } from "../redux/authSlice";
+import { useMyContext } from "../context/MyContext";
 
 export const Nav = () => {
-  const auth = useSelector((state: RootState) => state.auth.value);
-  const dispatch = useDispatch();
+  const { auth, setAuth } = useMyContext();
+  // const auth = useSelector((state: RootState) => state.auth.value);
+  // const dispatch = useDispatch();
 
   const logout = async () => {
     await axios.post("logout", {}, { withCredentials: true });
 
     axios.defaults.headers.common["Authorization"] = "";
 
-    dispatch(setAuth(false));
+    setAuth(false);
+    // dispatch(setAuth(false));
   };
 
   let links;

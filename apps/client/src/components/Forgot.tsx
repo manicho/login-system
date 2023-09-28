@@ -1,7 +1,12 @@
 import axios from "axios";
 import { SyntheticEvent, useState } from "react";
+// import { setEmailPayload } from "../redux/emailPayloadSlice";
+// import { useDispatch } from "react-redux";
+import { useMyContext } from "../context/MyContext";
 
 export const Forgot = () => {
+  const { setEmailPayload } = useMyContext();
+  // const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [notify, setNotify] = useState({
     show: false,
@@ -12,12 +17,14 @@ export const Forgot = () => {
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await axios.post("forgot", { email });
+      const { data } = await axios.post("forgot", { email });
       setNotify({
         show: true,
         error: false,
         message: "Please check your email",
       });
+      setEmailPayload(data);
+      // dispatch(setEmailPayload(data));
     } catch (error) {
       setNotify({
         show: true,
