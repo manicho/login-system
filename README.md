@@ -45,35 +45,40 @@ To get started with this project, follow these installation steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/manicho/login-system.git
+   cd login-system
    ```
 
-Install dependencies for both the API and the client:
+2. Install dependencies for both the API and the client:
 
-bash
-Copy code
+```bash
 npm install
-Usage
+```
+
+## Usage
+
 To use the project, follow these steps:
 
 Configure the necessary environment variables (see Environment Variables).
 
 Start the local development server:
 
-bash
-Copy code
+```bash
 npm run dev
+```
+
 Access the API at http://localhost:8000 and the client at http://localhost:3000.
 
-Configuration
+## Configuration
+
 The project can be configured using environment variables (see Environment Variables). Additionally, the following configuration options are available:
 
 Database Configuration: You can configure the database connection in the API's ormconfig.js or equivalent file.
 
 Authentication Methods: Customize authentication methods by modifying the authentication controllers and services.
 
-Local Development
+## Local Development
+
 For local development, you can use the following scripts:
 
 npm run dev: Start both the API and the client for local development using TurboRepo.
@@ -82,26 +87,32 @@ npm run dev:api: Start only the API for local development.
 
 npm run dev:client: Start only the client for local development.
 
-Environment Variables
+## Environment Variables
+
 To run this project, you need to set up environment variables. Create a .env file in both the client and api directories with the following content:
 
 Client (.env in client directory)
-env
-Copy code
-VITE_GOOGLE_OAUTH_CLIENT_ID=your-google-client-id
-API (.env in api directory)
-env
 
-Copy code
+```env
+VITE_GOOGLE_OAUTH_CLIENT_ID=your-google-client-id
+```
+
+API (.env in api directory)
+
+```env
 PORT=8000
 DATABASE_URL=sqlite:///path-to-your-sqlite-database.db
 SECRET_KEY=your-secret-key
+```
 
-Deployment
-To deploy this project, follow your hosting provider's instructions for deploying a Nest.js API and a Vite + React application. Make sure to set the appropriate environment variables for production.
+## Deployment
 
-Contributing
+To deploy this project, follow your hosting provider's instructions for deploying a Nest.js API and a React application. Make sure to set the appropriate environment variables for production.
+
+## Contributing
+
 Contributions are welcome! Please fork the repository and create a pull request with your improvements.
 
-License
-This project is licensed under the [Your License Name] License - see the LICENSE file for details.
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
